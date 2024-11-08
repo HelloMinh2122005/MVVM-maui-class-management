@@ -1,6 +1,4 @@
-﻿
-
-using MVVMplayground.Model;
+﻿using MVVMplayground.Model;
 
 namespace MVVMplayground.Interfaces;
 

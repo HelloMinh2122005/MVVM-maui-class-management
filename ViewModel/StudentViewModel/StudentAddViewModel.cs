@@ -35,6 +35,12 @@ public partial class StudentAddViewModel : ObservableObject
     [RelayCommand]
     async Task Save()
     {
+        if (Studentname == "" || Studentid == "" || Studentdob == "")
+        {
+            await Shell.Current.DisplayAlert("Lỗi", "Vui lòng nhập đầy đủ thông tin.", "OK");
+            return;
+        }
+
         Student newStudent = new Student
         {
             ClassID = Classid,
@@ -42,8 +48,17 @@ public partial class StudentAddViewModel : ObservableObject
             StudentID = Studentid,
             StudentDOB = Studentdob
         };
-        await _istudentResponsitory.AddStudentAsync(newStudent);
-        await Shell.Current.GoToAsync($"..?saved={newStudent.StudentID}");
+
+        try
+        {
+            await _istudentResponsitory.AddStudentAsync(newStudent);
+            await Shell.Current.GoToAsync($"..?saved={Studentid}");
+        }
+        catch (Exception ex)
+        {
+            var innerExceptionMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+            await Shell.Current.DisplayAlert("Error", $"An error occurred: {innerExceptionMessage}", "OK");
+        }
     }
 
     [RelayCommand]

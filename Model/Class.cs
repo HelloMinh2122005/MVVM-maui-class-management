@@ -7,5 +7,5 @@ public class Class
     public string ClassID { get; set; } = "";
     public string ClassName { get; set; } = "";
 
-    List<Student> Students { get; set; } = [];
+    public List<Student> Students { get; set; } = [];
 }

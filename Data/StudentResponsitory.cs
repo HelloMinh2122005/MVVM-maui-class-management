@@ -4,8 +4,15 @@ using MVVMplayground.Model;
 
 namespace MVVMplayground.Data;
 
-public class StudentResponsitory(ClassDbContext context) : IStudentResponsitory
+public class StudentResponsitory : IStudentResponsitory
 {
+    private readonly ClassDbContext context;
+
+    public StudentResponsitory(ClassDbContext _context)
+    {
+        context = _context;
+    }
+
     public async Task AddStudentAsync(Student student)
     {
         context.Students.Add(student);

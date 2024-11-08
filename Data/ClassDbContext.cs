@@ -51,12 +51,28 @@ public class ClassDbContext(DbContextOptions options) : DbContext(options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Student>().Property(st => st.StudentID).HasColumnName("ID");
-        modelBuilder.Entity<Student>().Property(st => st.StudentName).HasColumnName("NAME");
-        modelBuilder.Entity<Student>().Property(st => st.StudentDOB).HasColumnName("DOB");
-        modelBuilder.Entity<Student>().Property(st => st.ClassID).HasColumnName("IDLOP");
+        modelBuilder.Entity<Student>(entity =>
+        {
+            entity.HasKey(e => e.StudentID);
+            entity.Property(e => e.StudentID).HasColumnName("ID");
+            entity.Property(e => e.StudentName).HasColumnName("NAME");
+            entity.Property(e => e.StudentDOB).HasColumnName("DOB");
+            entity.Property(e => e.ClassID).HasColumnName("IDLOP");
 
-        modelBuilder.Entity<Class>().Property(cl => cl.ClassID).HasColumnName("ID");
-        modelBuilder.Entity<Class>().Property(cl => cl.ClassName).HasColumnName("NAME");
+            entity.HasOne(e => e.Class)
+                .WithMany(c => c.Students)
+                .HasForeignKey(e => e.ClassID);
+        });
+
+        modelBuilder.Entity<Class>(entity =>
+        {
+            entity.HasKey(e => e.ClassID);
+            entity.Property(e => e.ClassID).HasColumnName("ID");
+            entity.Property(e => e.ClassName).HasColumnName("NAME");
+
+            entity.HasMany(e => e.Students)
+                .WithOne(s => s.Class)
+                .HasForeignKey(s => s.ClassID);
+        });
     }
 }
