@@ -19,7 +19,7 @@ public partial class ClassListViewModel : ObservableObject, IQueryAttributable
         ClassesList = new ObservableCollection<Class>();
         _iclassrepo = classrepo;
         currentClass = new Class {ClassName = "XX" };
-        LoadClassesAsync();
+        LoadClassesAsync().ConfigureAwait(false);
     }
 
     [ObservableProperty]
@@ -96,12 +96,11 @@ public partial class ClassListViewModel : ObservableObject, IQueryAttributable
         await Shell.Current.GoToAsync($"{nameof(ClassEditView)}?Classid={currentClass.ClassID}");
     }
 
-    public async void LoadClassesAsync()
+    public async Task LoadClassesAsync()
     {
         var classes = await _iclassrepo.GetClassesAsync();
         ClassesList.Clear();
         foreach (var classitem in classes)
             ClassesList.Add(classitem);
     }
-    
 }

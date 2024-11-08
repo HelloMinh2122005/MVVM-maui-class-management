@@ -23,6 +23,7 @@ public partial class StudentListViewModel : ObservableObject, IQueryAttributable
         _istudentResponsitory = studentResponsitory;
         StudentList = new ObservableCollection<Student>();
         currentStudent = new Student {StudentName = "XX" };
+        _classid = "";
         LoadStudentAsync();
 
         StudentList.Add(new Student
@@ -48,6 +49,8 @@ public partial class StudentListViewModel : ObservableObject, IQueryAttributable
     [ObservableProperty]
     ObservableCollection<Student> _studentList;
 
+    
+
     async void IQueryAttributable.ApplyQueryAttributes(IDictionary<string, object> query)
     {
         if (query.ContainsKey("saved"))
@@ -70,6 +73,11 @@ public partial class StudentListViewModel : ObservableObject, IQueryAttributable
                 return;
             int index = StudentList.IndexOf(editedstudent);
             StudentList[index] = editedstudent;
+        }
+        if (query.ContainsKey("Classid"))
+        {
+            Classid = query["Classid"].ToString() ?? "";
+            await LoadStudentAsync();
         }
     }
 
@@ -109,7 +117,7 @@ public partial class StudentListViewModel : ObservableObject, IQueryAttributable
         }
     }
 
-    public async void LoadStudentAsync()
+    public async Task LoadStudentAsync()
     {
         StudentList.Clear();
         if (string.IsNullOrEmpty(Classid))
