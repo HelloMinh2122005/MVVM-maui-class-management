@@ -7,6 +7,7 @@
              x:DataType="viewmodel:ClassEditViewModel">
 
     <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+        
         <Label Text="Mã lớp"/>
         <Entry Grid.Row="1" IsReadOnly="True" Text="{Binding Classid}"/>
         <Label Grid.Row="2" Text="Nhập tên lớp"/>

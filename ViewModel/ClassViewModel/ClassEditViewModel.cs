@@ -13,6 +13,7 @@ public partial class ClassEditViewModel : ObservableObject
     public ClassEditViewModel(IClassResponsitory iclass)
     {
         _iclassrepo = iclass;
+        classid = "";
     }
 
     [ObservableProperty]

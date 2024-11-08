@@ -74,6 +74,9 @@
 	  <MauiXaml Update="View\ClassView\ClassListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\StudentView\StudentAddView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\StudentView\StudentListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

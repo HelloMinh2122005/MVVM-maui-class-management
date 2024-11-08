@@ -37,6 +37,9 @@ namespace MVVMplayground
             builder.Services.AddTransient<StudentListView>();
             builder.Services.AddTransient<StudentListViewModel>();
 
+            builder.Services.AddTransient<StudentAddView>();
+            builder.Services.AddTransient<StudentAddViewModel>();
+
             builder.Services.AddScoped<IClassResponsitory, ClassRepository>();
             builder.Services.AddScoped<IStudentResponsitory, StudentResponsitory>();
 

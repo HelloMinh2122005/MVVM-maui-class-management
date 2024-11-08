@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using MVVMplayground.Interfaces;
 using MVVMplayground.Model;
+using MVVMplayground.View.StudentView;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,25 +23,9 @@ public partial class StudentListViewModel : ObservableObject, IQueryAttributable
     {
         _istudentResponsitory = studentResponsitory;
         StudentList = new ObservableCollection<Student>();
-        currentStudent = new Student {StudentName = "XX" };
+        currentStudent = new Student { StudentName = "XX" };
         _classid = "";
-        LoadStudentAsync();
-
-        StudentList.Add(new Student
-        {
-            ClassID = Classid,
-            StudentDOB = "1/2/333",
-            StudentID = "3",
-            StudentName = "minh"
-        });
-
-        StudentList.Add(new Student
-        {
-            ClassID = Classid,
-            StudentDOB = "4/3/333",
-            StudentID = "2",
-            StudentName = "mi"
-        });
+        LoadStudentAsync().ConfigureAwait(false);
     }
 
     [ObservableProperty]
@@ -48,8 +33,6 @@ public partial class StudentListViewModel : ObservableObject, IQueryAttributable
 
     [ObservableProperty]
     ObservableCollection<Student> _studentList;
-
-    
 
     async void IQueryAttributable.ApplyQueryAttributes(IDictionary<string, object> query)
     {
@@ -74,11 +57,6 @@ public partial class StudentListViewModel : ObservableObject, IQueryAttributable
             int index = StudentList.IndexOf(editedstudent);
             StudentList[index] = editedstudent;
         }
-        if (query.ContainsKey("Classid"))
-        {
-            Classid = query["Classid"].ToString() ?? "";
-            await LoadStudentAsync();
-        }
     }
 
     [RelayCommand]
@@ -90,7 +68,7 @@ public partial class StudentListViewModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     async Task Add()
     {
-
+        await Shell.Current.GoToAsync($"{nameof(StudentAddView)}?Classid={Classid}");
     }
 
     [RelayCommand]
@@ -115,6 +93,7 @@ public partial class StudentListViewModel : ObservableObject, IQueryAttributable
             await Shell.Current.DisplayAlert("Thông báo", "Chưa chọn học sinh để sửa", "OK");
             return;
         }
+        //await Shell.Current.GoToAsync($"{nameof(StudentEditView)}?Studentid={currentStudent.StudentID}");
     }
 
     public async Task LoadStudentAsync()
