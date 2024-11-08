@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MVVMplayground.View.ClassView.ClassListView"
+             Title="Danh sách lớp học"
+             xmlns:viewmodel="clr-namespace:MVVMplayground.ViewModel.ClassViewModel"
+             xmlns:models="clr-namespace:MVVMplayground.Model"
+             x:DataType="viewmodel:ClassListViewModel">
+
+    <Grid RowDefinitions=".8*, Auto"
+          RowSpacing="10">
+        <CollectionView
+            ItemsSource="{Binding ClassesList}"
+            SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Class">
+                    <Frame>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ClassListViewModel}}, Path=Tap1Command}"
+                                                  CommandParameter="{Binding .}"/>
+                            <TapGestureRecognizer NumberOfTapsRequired="2"
+                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ClassListViewModel}}, Path=Tap2Command}"
+                                                  CommandParameter="{Binding .}"/>
+                        </Frame.GestureRecognizers>
+                        <Grid Padding="5" 
+                              ColumnDefinitions="Auto, Auto" 
+                              RowDefinitions="Auto, Auto"
+                              ColumnSpacing="20">
+                            <!-- -->
+
+                            <Label Text="Mã lớp" FontSize="20"/>
+                            <Label Grid.Column="1" Text="{Binding ClassID}" FontSize="20"/>
+                            <Label Grid.Row="1" Text="Tên lớp" FontSize="15"/>
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding ClassName}" FontSize="15"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Grid Grid.Row="2"
+              ColumnDefinitions="Auto, Auto, Auto"
+              HorizontalOptions="CenterAndExpand"
+              VerticalOptions="CenterAndExpand"
+              ColumnSpacing="50">
+            <Button Text="Thêm"
+                    Command="{Binding AddCommand}"/>
+            <Button Grid.Column="1" 
+                    Text="Xóa"
+                    Command="{Binding DelCommand}"/>
+            <Button Grid.Column="2"
+                    Text="Sửa"
+                    Command="{Binding EditCommand}"/>
+        </Grid>
+    </Grid>
+</ContentPage>
