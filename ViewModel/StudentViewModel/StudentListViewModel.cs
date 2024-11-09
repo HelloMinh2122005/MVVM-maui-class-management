@@ -36,6 +36,11 @@ public partial class StudentListViewModel : ObservableObject, IQueryAttributable
 
     async void IQueryAttributable.ApplyQueryAttributes(IDictionary<string, object> query)
     {
+        if (query.ContainsKey("Classid"))
+        {
+            Classid = query["Classid"].ToString() ?? "";
+            await LoadStudentAsync();
+        }
         if (query.ContainsKey("saved"))
         {
             string studentid = query["saved"].ToString() ?? "";
