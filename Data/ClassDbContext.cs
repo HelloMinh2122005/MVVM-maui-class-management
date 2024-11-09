@@ -48,7 +48,7 @@ public class ClassDbContext(DbContextOptions options) : DbContext(options)
 
         Preferences.Set("DATABASE_PATH", dbFile.FullPath);
     }
-
+    /*
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Student>(entity =>
@@ -75,4 +75,5 @@ public class ClassDbContext(DbContextOptions options) : DbContext(options)
                 .HasForeignKey(s => s.ClassID);
         });
     }
+    */
 }

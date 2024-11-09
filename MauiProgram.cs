@@ -28,17 +28,17 @@ namespace MVVMplayground
             builder.Services.AddSingleton<ClassListView>();
             builder.Services.AddSingleton<ClassListViewModel>();
 
-            builder.Services.AddTransient<ClassAddView>();
-            builder.Services.AddTransient<ClassAddViewModel>();
+            builder.Services.AddSingleton<ClassAddView>();
+            builder.Services.AddSingleton<ClassAddViewModel>();
 
-            builder.Services.AddTransient<ClassEditView>();
-            builder.Services.AddTransient<ClassEditViewModel>();
+            builder.Services.AddSingleton<ClassEditView>();
+            builder.Services.AddSingleton<ClassEditViewModel>();
 
-            builder.Services.AddTransient<StudentListView>();
-            builder.Services.AddTransient<StudentListViewModel>();
+            builder.Services.AddSingleton<StudentListView>();
+            builder.Services.AddSingleton<StudentListViewModel>();
 
-            builder.Services.AddTransient<StudentAddView>();
-            builder.Services.AddTransient<StudentAddViewModel>();
+            builder.Services.AddSingleton<StudentAddView>();
+            builder.Services.AddSingleton<StudentAddViewModel>();
 
             builder.Services.AddScoped<IClassResponsitory, ClassRepository>();
             builder.Services.AddScoped<IStudentResponsitory, StudentResponsitory>();

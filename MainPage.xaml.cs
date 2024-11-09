@@ -14,6 +14,7 @@ public partial class MainPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+        Preferences.Remove("DATABASE_PATH");
         await ClassDbContext.PickDatabasePathIfNotExist();
     }
 

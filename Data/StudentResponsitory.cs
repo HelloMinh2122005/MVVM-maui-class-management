@@ -27,7 +27,8 @@ public class StudentResponsitory : IStudentResponsitory
 
     public async Task<Student> GetStudentByIDAsync(string studentID)
     {
-        return await context.Students.FindAsync(studentID) ?? new Student { StudentID = "", StudentName = "XXX" };
+        Student student = await context.Students.FirstOrDefaultAsync(s => s.StudentID == studentID);
+        return student ?? new Student { StudentID = "" };
     }
 
     public async Task<IEnumerable<Student>> GetStudentsAsync(string classID)

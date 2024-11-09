@@ -3,15 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVVMplayground.Model;
 
-[Table("HOCSINH")]
+[Table("Student")]
 public class Student
 {
-    public string StudentID { get; set; } = "";
+    public string StudentID { get; set; } = Guid.NewGuid().ToString();
     public string StudentName { get; set; } = "";
     public string StudentDOB { get; set; } = "";
 
-    [ForeignKey("Class")]
-    [Column("IDLOP")]
     public string ClassID { get; set; } = "";
-    public Class Class { get; set; } = new Class();
+    public Class Class { get; set; } = null!;
 }
