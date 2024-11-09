@@ -25,8 +25,8 @@
                               RowDefinitions="Auto, Auto">
 
                             <Grid Grid.Row="0"
-                                  ColumnDefinitions="Auto, Auto"
-                                  ColumnSpacing="200">
+                                  ColumnDefinitions="300, Auto"
+                                  ColumnSpacing="20">
 
                                 <Grid ColumnDefinitions="Auto, Auto"
                                       ColumnSpacing="5">
@@ -46,19 +46,20 @@
                             </Grid>
 
                             <Grid Grid.Row="1"
-                                  ColumnDefinitions="Auto, Auto"
-                                  ColumnSpacing="200">
+                                  ColumnDefinitions="300, Auto"
+                                  ColumnSpacing="20"
+                                  HorizontalOptions="Start">
 
                                 <Grid ColumnDefinitions="Auto, Auto"
                                       ColumnSpacing="5">
-                                    <Label Text="Tên học sinh" FontSize="15"/>
-                                    <Label Grid.Column="1" Text="{Binding StudentName}" FontSize="20"/>
+                                    <Label Text="Tên học sinh:" FontSize="15"/>
+                                    <Label Grid.Column="1" Text="{Binding StudentName}" FontSize="15"/>
                                 </Grid>
 
                                 <Grid Grid.Column="1"
                                       ColumnDefinitions="Auto, Auto"
                                       ColumnSpacing="5">
-                                    <Label Text="Ngày sinh học sinh" FontSize="20"/>
+                                    <Label Text="Ngày sinh học sinh:" FontSize="15"/>
                                     <Label Grid.Column="1" Text="{Binding StudentDOB}" FontSize="15"/>
                                 </Grid>
 
