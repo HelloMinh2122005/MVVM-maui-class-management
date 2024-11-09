@@ -98,7 +98,7 @@ public partial class StudentListViewModel : ObservableObject, IQueryAttributable
             await Shell.Current.DisplayAlert("Thông báo", "Chưa chọn học sinh để sửa", "OK");
             return;
         }
-        //await Shell.Current.GoToAsync($"{nameof(StudentEditView)}?Studentid={currentStudent.StudentID}");
+        await Shell.Current.GoToAsync($"{nameof(StudentEditView)}?Studentid={currentStudent.StudentID}?Classid={Classid}");
     }
 
     public async Task LoadStudentAsync()

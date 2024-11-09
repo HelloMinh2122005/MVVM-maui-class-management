@@ -40,6 +40,9 @@ namespace MVVMplayground
             builder.Services.AddSingleton<StudentAddView>();
             builder.Services.AddSingleton<StudentAddViewModel>();
 
+            builder.Services.AddSingleton<StudentEditView>();
+            builder.Services.AddSingleton<StudentEditViewModel>();
+
             builder.Services.AddScoped<IClassResponsitory, ClassRepository>();
             builder.Services.AddScoped<IStudentResponsitory, StudentResponsitory>();
 
