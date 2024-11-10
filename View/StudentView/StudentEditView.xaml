@@ -9,13 +9,13 @@
     <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
 
         <Label Text="Mã lớp"/>
-        <Entry Grid.Row="1" IsReadOnly="True" Text="{Binding Classid}"/>
+        <Entry Grid.Row="1" IsReadOnly="True" Text="{Binding StudentPara.ClassID}"/>
         <Label Grid.Row="2" Text="Mã học sinh"/>
-        <Entry Grid.Row="3" IsReadOnly="True" Text="{Binding Studentid}"/>
+        <Entry Grid.Row="3" IsReadOnly="True" Text="{Binding StudentPara.StudentID}"/>
         <Label Grid.Row="4" Text="Nhập tên học sinh"/>
-        <Entry Grid.Row="5" Text="{Binding Studentname}" Placeholder="Nhập tên học sinh mới"/>
+        <Entry Grid.Row="5" Text="{Binding StudentPara.StudentName}" Placeholder="Nhập tên học sinh mới"/>
         <Label Grid.Row="6" Text="Nhập ngày sinh học sinh"/>
-        <Entry Grid.Row="7" Text="{Binding Studentdob}" Placeholder="Nhập ngày sinh học sinh mới"/>
+        <Entry Grid.Row="7" Text="{Binding StudentPara.StudentDOB}" Placeholder="Nhập ngày sinh học sinh mới"/>
         <Grid Grid.Row="8" ColumnDefinitions="Auto, Auto" ColumnSpacing="20">
             <Button Text="Lưu" 
                 Command="{Binding SaveCommand}"/>

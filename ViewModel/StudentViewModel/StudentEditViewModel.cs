@@ -5,54 +5,34 @@ using MVVMplayground.Model;
 
 namespace MVVMplayground.ViewModel.StudentViewModel;
 
-[QueryProperty("Studentid", "Studentid")]
-[QueryProperty("Classid", "Classid")]
+[QueryProperty(nameof(StudentPara), "StudentPara")]
 public partial class StudentEditViewModel : ObservableObject
 {
     private readonly IStudentResponsitory _istudentResponsitory;
 
     [ObservableProperty]
-    public string _studentid;
+    public Student _studentPara;
     
-    [ObservableProperty]
-    public string _studentname;
 
-    [ObservableProperty]
-    public string _classid;
-
-    [ObservableProperty]
-    public string _studentdob;
-
-    public StudentEditViewModel(IStudentResponsitory studentResponsitory)
+    public StudentEditViewModel(IStudentResponsitory studentResponsitory, Student st)
     {
-        _studentid = "";
-        _studentname = "";
-        _classid = "";
-        _studentdob = "";
+        _studentPara = st;
         _istudentResponsitory = studentResponsitory;
     }
 
     [RelayCommand]
     async Task Save()
     {
-        if (Studentname == "" || Studentid == "" || Studentdob == "")
+        if (StudentPara.StudentName == "" || StudentPara.StudentDOB == "")
         {
             await Shell.Current.DisplayAlert("Lỗi", "Vui lòng nhập đầy đủ thông tin.", "OK");
             return;
         }
 
-        Student newStudent = new Student
-        {
-            ClassID = Classid,
-            StudentName = Studentname,
-            StudentID = Studentid,
-            StudentDOB = Studentdob
-        };
-
         try
         {
-            await _istudentResponsitory.UpdateStudentAsync(newStudent);
-            await Shell.Current.GoToAsync($"..?edited={Studentid}");
+            await _istudentResponsitory.UpdateStudentAsync(StudentPara);
+            await Shell.Current.GoToAsync($"..?edited={StudentPara.StudentID}");
         }
         catch (Exception ex)
         {
@@ -62,8 +42,5 @@ public partial class StudentEditViewModel : ObservableObject
     }
 
     [RelayCommand]
-    async Task Cancel()
-    {
-        await Shell.Current.GoToAsync("..");
-    }
+    async Task Cancel() => await Shell.Current.GoToAsync("..");
 }

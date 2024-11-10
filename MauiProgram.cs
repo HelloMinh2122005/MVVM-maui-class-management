@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using MVVMplayground.Data;
 using MVVMplayground.Interfaces;
+using MVVMplayground.Model;
 using MVVMplayground.View.ClassView;
 using MVVMplayground.View.StudentView;
 using MVVMplayground.ViewModel.ClassViewModel;
@@ -25,6 +26,9 @@ namespace MVVMplayground
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+            builder.Services.AddSingleton<Student>();
+            builder.Services.AddSingleton<Class>(); 
+
             builder.Services.AddSingleton<ClassListView>();
             builder.Services.AddSingleton<ClassListViewModel>();
 

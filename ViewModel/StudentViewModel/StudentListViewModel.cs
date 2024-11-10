@@ -93,12 +93,25 @@ public partial class StudentListViewModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     async Task Edit()
     {
-        if (currentStudent.StudentID == "" && currentStudent.StudentName == "XX")
+        try
         {
-            await Shell.Current.DisplayAlert("Thông báo", "Chưa chọn học sinh để sửa", "OK");
-            return;
+            if (currentStudent.StudentID == "" && currentStudent.StudentName == "XX")
+            {
+                await Shell.Current.DisplayAlert("Thông báo", "Chưa chọn học sinh để sửa", "OK");
+                return;
+            }
+
+            Dictionary<string, object> StudentPara = new Dictionary<string, object>
+            {
+                { "StudentPara", currentStudent }
+            };
+
+            await Shell.Current.GoToAsync(nameof(StudentEditView), StudentPara);
         }
-        await Shell.Current.GoToAsync($"{nameof(StudentEditView)}?Studentid={currentStudent.StudentID}?Classid={Classid}");
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+        }
     }
 
     public async Task LoadStudentAsync()
