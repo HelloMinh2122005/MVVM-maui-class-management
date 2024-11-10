@@ -41,29 +41,17 @@ public partial class StudentAddViewModel : ObservableObject
             return;
         }
 
-        Student newStudent = new Student
+        await _istudentResponsitory.AddStudentAsync(new Student
         {
             ClassID = Classid,
             StudentName = Studentname,
             StudentID = Studentid,
             StudentDOB = Studentdob
-        };
-
-        try
-        {
-            await _istudentResponsitory.AddStudentAsync(newStudent);
-            await Shell.Current.GoToAsync($"..?saved={Studentid}");
-        }
-        catch (Exception ex)
-        {
-            var innerExceptionMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-            await Shell.Current.DisplayAlert("Error", $"An error occurred: {innerExceptionMessage}", "OK");
-        }
+        });
+        
+        await Shell.Current.GoToAsync($"..?saved=dummy");
     }
 
     [RelayCommand]
-    async Task Cancel()
-    {
-        await Shell.Current.GoToAsync("..");
-    }
+    async Task Cancel() => await Shell.Current.GoToAsync("..");
 }

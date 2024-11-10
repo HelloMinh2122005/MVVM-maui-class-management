@@ -13,7 +13,6 @@ public partial class StudentEditViewModel : ObservableObject
     [ObservableProperty]
     public Student _studentPara;
     
-
     public StudentEditViewModel(IStudentResponsitory studentResponsitory, Student st)
     {
         _studentPara = st;
@@ -28,17 +27,9 @@ public partial class StudentEditViewModel : ObservableObject
             await Shell.Current.DisplayAlert("Lỗi", "Vui lòng nhập đầy đủ thông tin.", "OK");
             return;
         }
-
-        try
-        {
-            await _istudentResponsitory.UpdateStudentAsync(StudentPara);
-            await Shell.Current.GoToAsync($"..?edited={StudentPara.StudentID}");
-        }
-        catch (Exception ex)
-        {
-            var innerExceptionMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-            await Shell.Current.DisplayAlert("Error", $"An error occurred: {innerExceptionMessage}", "OK");
-        }
+        
+        await _istudentResponsitory.UpdateStudentAsync(StudentPara);
+        await Shell.Current.GoToAsync($"..?edited=dummy");
     }
 
     [RelayCommand]

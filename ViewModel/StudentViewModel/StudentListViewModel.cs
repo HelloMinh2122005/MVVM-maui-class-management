@@ -41,26 +41,9 @@ public partial class StudentListViewModel : ObservableObject, IQueryAttributable
             Classid = query["Classid"].ToString() ?? "";
             await LoadStudentAsync();
         }
-        if (query.ContainsKey("saved"))
+        if (query.ContainsKey("saved") || query.ContainsKey("edited"))
         {
-            string studentid = query["saved"].ToString() ?? "";
-            if (studentid == "")
-                return;
-            Student newStudent = await _istudentResponsitory.GetStudentByIDAsync(studentid);
-            if (newStudent.StudentID == "")
-                return;
-            StudentList.Add(newStudent);
-        }
-        if (query.ContainsKey("edited"))
-        {
-            string studentid = query["edited"].ToString() ?? "";
-            if (studentid == "")
-                return;
-            Student editedstudent = await _istudentResponsitory.GetStudentByIDAsync(studentid);
-            if (editedstudent.ClassID == "")
-                return;
-            int index = StudentList.IndexOf(editedstudent);
-            StudentList[index] = editedstudent;
+            await LoadStudentAsync();
         }
     }
 
@@ -93,32 +76,21 @@ public partial class StudentListViewModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     async Task Edit()
     {
-        try
+        if (currentStudent.StudentID == "" && currentStudent.StudentName == "XX")
         {
-            if (currentStudent.StudentID == "" && currentStudent.StudentName == "XX")
-            {
-                await Shell.Current.DisplayAlert("Thông báo", "Chưa chọn học sinh để sửa", "OK");
-                return;
-            }
-
-            Dictionary<string, object> StudentPara = new Dictionary<string, object>
-            {
-                { "StudentPara", currentStudent }
-            };
-
-            await Shell.Current.GoToAsync(nameof(StudentEditView), StudentPara);
+            await Shell.Current.DisplayAlert("Thông báo", "Chưa chọn học sinh để sửa", "OK");
+            return;
         }
-        catch (Exception ex)
+
+        await Shell.Current.GoToAsync(nameof(StudentEditView), new Dictionary<string, object>
         {
-            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
-        }
+            { "StudentPara", currentStudent }
+        });
     }
 
     public async Task LoadStudentAsync()
     {
         StudentList.Clear();
-        if (string.IsNullOrEmpty(Classid))
-            return;
         var students = await _istudentResponsitory.GetStudentsAsync(Classid);
         foreach (Student student in students)
             StudentList.Add(student);
